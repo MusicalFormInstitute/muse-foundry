@@ -55,7 +55,7 @@ export default async function handler(req, res) {
   const name   = String(body.name   || '').trim();
   const email  = String(body.email  || '').trim().toLowerCase();
   const link   = String(body.link   || '').trim();
-  const honey  = String(body.company || '').trim();
+  const honey  = String(body.mfxref || '').trim();
 
   const bail = (code, msg) =>
     wantsJson
@@ -69,7 +69,14 @@ export default async function handler(req, res) {
 
   // Honeypot. A real person never sees this field, so anything in it is a bot.
   // Return success so the bot does not learn it was filtered.
-  if (honey) return win(false);
+  //
+  // This is logged because a silent drop is indistinguishable from success at
+  // the UI. If real signups ever go missing, check here first: an autofill that
+  // targets the hidden field would look exactly like bot traffic.
+  if (honey) {
+    console.warn('signup: honeypot tripped, dropping submission', JSON.stringify({ branch, honeyLength: honey.length }));
+    return win(false);
+  }
 
   if (!isEmail(email))                          return bail(400, 'Please enter a valid email address');
   if (!name)                                    return bail(400, 'Please enter your name');

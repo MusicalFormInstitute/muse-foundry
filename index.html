@@ -60,10 +60,16 @@
           <input type="url" id="link" name="link" placeholder="https://" autocomplete="url">
         </div>
 
-        <!-- Honeypot. Hidden from people, filled in by bots. -->
+        <!-- Honeypot. Hidden from people, filled in by bots.
+             The field name is deliberately meaningless and there is no <label>:
+             a field named "company" with a matching label gets filled in by
+             password managers and browser autofill, which silently flagged real
+             people as bots. Never give this field a name or label that maps to
+             a real-world value. -->
         <div class="hp" aria-hidden="true">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          <input type="text" id="mfxref" name="mfxref" tabindex="-1"
+                 autocomplete="off" data-lpignore="true" data-1p-ignore
+                 data-form-type="other">
         </div>
 
         <button type="submit" class="btn-submit" id="submitBtn">Join the list</button>
@@ -165,7 +171,7 @@
         name:    name,
         email:   email,
         link:    linkInput.value.trim(),
-        company: document.getElementById('company').value
+        mfxref:  document.getElementById('mfxref').value
       })
     })
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
