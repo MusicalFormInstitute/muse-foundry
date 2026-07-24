@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google Analytics 4 (Muse Foundry property). -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4CWJFB29V8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4CWJFB29V8');
+</script>
+
 <title>You're on the list, Muse Foundry</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
@@ -46,6 +56,10 @@
     artist:   'We will be in touch about carrying your releases'
   };
   if (b && msg[b]) document.getElementById('doneMsg').textContent = msg[b];
+
+  // Fire the signup conversion. Mark 'sign_up' as a Key Event in GA4, then
+  // import it into Google Ads so the campaign optimizes toward signups.
+  if (typeof gtag === 'function') gtag('event', 'sign_up', { method: b || 'unknown' });
 })();
 </script>
 
