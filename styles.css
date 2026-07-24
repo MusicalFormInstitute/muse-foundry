@@ -87,15 +87,6 @@ h1 {
 
 /* ---------- branch choice ---------- */
 
-.choice-label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 14px;
-}
-
 .choice-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .btn-choice {

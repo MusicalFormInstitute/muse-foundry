@@ -32,10 +32,6 @@
   --blue:#7FA9DA;
   --blue-dk:#7FA9DA;
 }
-.hero-art{flex-direction:column;align-items:center;gap:22px;}
-/* Clip the black wordmark baked into the artwork (rows 1447-1701 of 1701). */
-.hero-art img.art{clip-path:inset(0 0 14.93% 0);margin-bottom:-6%;}
-.hero-art img.wm{width:190px;height:auto;}
 .btn-choice{border-color:#FFFFFF;color:#FFFFFF;}
 .btn-choice:hover,.btn-choice:focus-visible{background:#FFFFFF;color:#000000;}
 input[type="text"],input[type="email"],input[type="url"]{
@@ -60,7 +56,6 @@ input::placeholder{color:#6B6B6B;}
       </p>
 
       <div id="choice" class="choice">
-        <p class="choice-label">What brings you here?</p>
         <div class="choice-buttons">
           <button type="button" class="btn-choice" data-branch="listener">I want to buy music</button>
           <button type="button" class="btn-choice" data-branch="artist">I release music</button>
@@ -115,8 +110,7 @@ input::placeholder{color:#6B6B6B;}
     </div>
 
     <div class="hero-art">
-      <img class="art" src="/img/mf-primary.png" alt="" width="753" height="1701">
-      <img class="wm" src="/img/mf-wordmark-white.png" alt="Muse Foundry">
+      <img src="/img/mf-primary-white.png" alt="" width="753" height="1701">
     </div>
   </section>
 </main>
