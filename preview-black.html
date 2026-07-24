@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muse Foundry, the future of music is offline</title>
 <meta name="description" content="A record store for music you can't stream, one place to discover and buy music released exclusively on vinyl, CD, and cassette">
@@ -22,6 +23,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+<style>
+:root{
+  --paper:#000000;
+  --ink:#FFFFFF;
+  --rule:#2A2A2A;
+  --muted:#A8A29A;
+  --blue:#7FA9DA;
+  --blue-dk:#7FA9DA;
+}
+.hero-art{flex-direction:column;align-items:center;gap:22px;}
+/* Clip the black wordmark baked into the artwork (rows 1447-1701 of 1701). */
+.hero-art img.art{clip-path:inset(0 0 14.93% 0);margin-bottom:-6%;}
+.hero-art img.wm{width:190px;height:auto;}
+.btn-choice{border-color:#FFFFFF;color:#FFFFFF;}
+.btn-choice:hover,.btn-choice:focus-visible{background:#FFFFFF;color:#000000;}
+input[type="text"],input[type="email"],input[type="url"]{
+  background:#101010;color:#FFFFFF;border-color:#333333;
+}
+input::placeholder{color:#6B6B6B;}
+.error{color:#FFC4AE;background:#3A1508;}
+</style>
+
 </head>
 <body>
 
@@ -92,7 +115,8 @@
     </div>
 
     <div class="hero-art">
-      <img src="/img/mf-primary.png" alt="" width="753" height="1701">
+      <img class="art" src="/img/mf-primary.png" alt="" width="753" height="1701">
+      <img class="wm" src="/img/mf-wordmark-white.png" alt="Muse Foundry">
     </div>
   </section>
 </main>
