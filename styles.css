@@ -134,7 +134,8 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="url"] {
+input[type="url"],
+textarea {
   width: 100%;
   font: inherit;
   padding: 13px 14px;
@@ -145,10 +146,23 @@ input[type="url"] {
   border-radius: 3px;
 }
 
-input:focus {
+textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+input:focus,
+textarea:focus {
   outline: 2px solid var(--blue);
   outline-offset: 1px;
   border-color: var(--blue);
+}
+
+.opt {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
 }
 
 .btn-submit {

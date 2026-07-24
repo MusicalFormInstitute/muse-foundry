@@ -51,11 +51,12 @@ export default async function handler(req, res) {
   const wantsJson = String(req.headers['content-type'] || '').includes('application/json');
   const body = req.body || {};
 
-  const branch = String(body.branch || '').trim();
-  const name   = String(body.name   || '').trim();
-  const email  = String(body.email  || '').trim().toLowerCase();
-  const link   = String(body.link   || '').trim();
-  const honey  = String(body.mfxref || '').trim();
+  const branch  = String(body.branch  || '').trim();
+  const name    = String(body.name    || '').trim();
+  const email   = String(body.email   || '').trim().toLowerCase();
+  const link    = String(body.link    || '').trim();
+  const message = String(body.message || '').trim().slice(0, 2000);
+  const honey   = String(body.mfxref  || '').trim();
 
   const bail = (code, msg) =>
     wantsJson
@@ -95,8 +96,14 @@ export default async function handler(req, res) {
     return bail(500, 'Signup is temporarily unavailable, please try again later');
   }
 
+  // WEBSITE and MESSAGE must exist as text contact attributes in Brevo for
+  // these to persist. If either is missing Brevo returns 400 and the retry
+  // ladder below strips attributes, so the contact and list membership are
+  // never lost, but the link or message would be. Create both in Brevo:
+  // Contacts > Settings > Contact attributes.
   const attributes = { FIRSTNAME: name };
   if (branch === 'artist' && link) attributes.WEBSITE = link;
+  if (message) attributes.MESSAGE = message;
 
   try {
     let r = await postToBrevo(apiKey, {

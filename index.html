@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Muse Foundry, the future of music is offline</title>
+<title>Muse Foundry | The future of music is offline</title>
 <meta name="description" content="A record store for music you can't stream, one place to discover and buy music released exclusively on vinyl, CD, and cassette">
 <link rel="canonical" href="https://musefoundry.studio/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Muse Foundry, the future of music is offline">
+<meta property="og:title" content="Muse Foundry | The future of music is offline">
 <meta property="og:description" content="A record store for music you can't stream">
 <meta property="og:url" content="https://musefoundry.studio/">
 <meta property="og:image" content="https://musefoundry.studio/img/mf-social.png">
@@ -22,6 +22,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Muse Foundry",
+  "url": "https://musefoundry.studio/",
+  "logo": "https://musefoundry.studio/img/mf-social.png",
+  "description": "A record store for music you can't stream. Muse Foundry is building one place to discover and buy music released exclusively on vinyl, CD, and cassette."
+}
+</script>
 </head>
 <body>
 
@@ -62,6 +73,9 @@
           <input type="url" id="link" name="link" placeholder="https://" autocomplete="url">
         </div>
 
+        <label for="message">Anything you want to tell us? <span class="opt">(optional)</span></label>
+        <textarea id="message" name="message" rows="3" maxlength="2000"></textarea>
+
         <!-- Honeypot. Hidden from people, filled in by bots.
              The field name is deliberately meaningless and there is no <label>:
              a field named "company" with a matching label gets filled in by
@@ -78,7 +92,7 @@
 
         <p class="consent">
           By joining you agree to receive email from Muse Foundry, you can unsubscribe
-          from anything we send, and we will never sell or share your address
+          from anything we send, and we will never sell or share your information
         </p>
 
         <p class="error" id="error" hidden></p>
@@ -173,6 +187,7 @@
         name:    name,
         email:   email,
         link:    linkInput.value.trim(),
+        message: document.getElementById('message').value.trim(),
         mfxref:  document.getElementById('mfxref').value
       })
     })
@@ -187,6 +202,10 @@
   });
 })();
 </script>
+
+<!-- Vercel Web Analytics. Cookieless and privacy-friendly, so no consent
+     banner is needed. Requires Web Analytics enabled on the Vercel project. -->
+<script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>
