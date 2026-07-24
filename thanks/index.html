@@ -25,7 +25,7 @@
     <div class="hero-copy">
       <div class="done">
         <h2>You're on the list</h2>
-        <p>We will be in touch, thanks for signing up</p>
+        <p id="doneMsg">We will be in touch, thanks for signing up</p>
       </div>
     </div>
   </section>
@@ -34,6 +34,20 @@
 <footer class="footer">
   <p>&copy; 2026 Muse Foundry &middot; <a class="footer-contact" href="mailto:jeffrey@musefoundry.studio?subject=Muse%20Foundry">Contact</a></p>
 </footer>
+
+<script>
+// Show the branch-specific line when the signup page passes ?b=listener|artist.
+// Falls back to the generic message for the no-JS server redirect, which has
+// no query string.
+(function () {
+  var b = new URLSearchParams(location.search).get('b');
+  var msg = {
+    listener: 'We will email you when there is something to buy',
+    artist:   'We will be in touch about carrying your releases'
+  };
+  if (b && msg[b]) document.getElementById('doneMsg').textContent = msg[b];
+})();
+</script>
 
 <script defer src="/_vercel/insights/script.js"></script>
 

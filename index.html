@@ -86,7 +86,7 @@
              people as bots. Never give this field a name or label that maps to
              a real-world value. -->
         <div class="hp" aria-hidden="true">
-          <input type="text" id="mfxref" name="mfxref" tabindex="-1"
+          <input type="text" id="mfxref" name="mfxref" tabindex="-1" aria-hidden="true"
                  autocomplete="off" data-lpignore="true" data-1p-ignore
                  data-form-type="other">
         </div>
@@ -100,11 +100,6 @@
 
         <p class="error" id="error" hidden></p>
       </form>
-
-      <div id="done" class="done" hidden>
-        <h2>You're on the list</h2>
-        <p id="doneMsg"></p>
-      </div>
     </div>
 
     <div class="hero-art">
@@ -121,7 +116,6 @@
 (function () {
   var choice    = document.getElementById('choice');
   var form      = document.getElementById('signup');
-  var done      = document.getElementById('done');
   var linkRow   = document.getElementById('linkRow');
   var linkInput = document.getElementById('link');
   var intro     = document.getElementById('formIntro');
@@ -132,13 +126,11 @@
   var COPY = {
     listener: {
       intro:  'Tell us where to reach you when the store opens',
-      button: 'Join the founding list',
-      done:   'We will email you when there is something to buy'
+      button: 'Join the founding list'
     },
     artist: {
       intro:  'Tell us who you are and where to find your releases',
-      button: 'Tell us about your releases',
-      done:   'We will be in touch about carrying your releases'
+      button: 'Tell us about your releases'
     }
   };
 
@@ -197,9 +189,9 @@
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
     .then(function (res) {
       if (!res.ok) return fail(res.body.error || 'Something went wrong, please try again');
-      form.hidden = true;
-      document.getElementById('doneMsg').textContent = COPY[branch].done;
-      done.hidden = false;
+      // Navigate to a distinct success URL so ad platforms can count the signup
+      // as a conversion. An inline message would give them no URL to track.
+      window.location.href = '/thanks?b=' + encodeURIComponent(branch);
     })
     .catch(function () { fail('Could not reach the server, please try again'); });
   });
