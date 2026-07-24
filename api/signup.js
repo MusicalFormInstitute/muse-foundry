@@ -106,15 +106,25 @@ export default async function handler(req, res) {
       updateEnabled: true,
     });
 
-    // 400 here is most often an attribute that has not been created in Brevo
-    // yet. Retry with just the email so the signup still lands on the list.
+    // 400 here is most often WEBSITE not existing as a contact attribute in the
+    // account. Retry with only FIRSTNAME, which every Brevo account has by
+    // default, so a missing WEBSITE costs the link but never the name or the
+    // list membership.
     if (r.status === 400) {
-      console.error('signup: Brevo 400 with attributes, retrying without', r.text);
+      console.error('signup: Brevo 400 with attributes, retrying with FIRSTNAME only', r.text);
       r = await postToBrevo(apiKey, {
         email,
+        attributes: { FIRSTNAME: name },
         listIds: [listId],
         updateEnabled: true,
       });
+    }
+
+    // Last resort: attributes are not the problem. Get the contact onto the
+    // list with nothing but an email address.
+    if (r.status === 400) {
+      console.error('signup: Brevo 400 with FIRSTNAME only, retrying bare', r.text);
+      r = await postToBrevo(apiKey, { email, listIds: [listId], updateEnabled: true });
     }
 
     // 201 = created, 204 = existing contact updated onto the list.
