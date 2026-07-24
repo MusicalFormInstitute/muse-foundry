@@ -8,8 +8,8 @@
   --blue-dk: #466D99;
   --orange:  #DF693B;
   --ink:     #111111;
-  --paper:   #FAF8F4;
-  --rule:    #E0DAD0;
+  --paper:   #FFFFFF;
+  --rule:    #E4E0DA;
   --muted:   #5A554E;
 }
 
@@ -221,10 +221,15 @@ input:focus {
 }
 
 @media (min-width: 900px) {
+  /* auto sizes the art column to the image itself, so `gap` is the actual
+     distance from the copy. With a fr unit the column was far wider than the
+     artwork and the centered image drifted away from the text. */
   .hero {
-    grid-template-columns: 0.85fr 1fr;
-    gap: 72px;
+    grid-template-columns: minmax(0, 520px) auto;
+    gap: 56px;
     padding: 64px 24px 88px;
+    justify-content: center;
   }
+  .hero-art { justify-content: flex-start; }
   .hero-art img { max-height: 540px; }
 }
